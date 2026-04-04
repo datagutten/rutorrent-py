@@ -1,1 +1,1 @@
-from rutorrent import RuTorrent
+from .rutorrent import RuTorrent
