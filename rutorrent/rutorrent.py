@@ -43,6 +43,8 @@ class RuTorrent:
 
     def get_torrents(self) -> list[models.Torrent]:
         response = self._post_action("list")
+        if not response["t"]:
+            return []
         return [
             models.Torrent(*data, info_hash)
             for info_hash, data in response["t"].items()
