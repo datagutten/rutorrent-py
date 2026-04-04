@@ -6,7 +6,7 @@ authors = [
     {name = "Anders Birkenes",email = "datagutten@datagutten.net"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
 dependencies = [
     "requests (>=2.32.5,<3.0.0)",
     "pydantic (>=2.12.5,<3.0.0)"
