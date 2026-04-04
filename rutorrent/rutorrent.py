@@ -4,7 +4,7 @@ from pathlib import Path
 
 import requests
 
-import models
+from . import models
 
 
 class RuTorrent:
