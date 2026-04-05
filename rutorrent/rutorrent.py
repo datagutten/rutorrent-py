@@ -34,8 +34,14 @@ class RuTorrent:
             parameters["hash"] = info_hash.upper()
         url = self.url + "/plugins/httprpc/action.php"
         response = self.session.post(url, data=parameters)
-        response.raise_for_status()
+        self._error_handler(response)
         return response.json()
+
+    def _error_handler(self, response: requests.Response):
+        if not response.ok and response.text:
+            raise RuntimeError(response.text)
+        else:
+            response.raise_for_status()
 
     def get_config(self):
         response = self._post_action("stg")
@@ -58,7 +64,7 @@ class RuTorrent:
         response = self.session.post(
             self.url + "/plugins/source/action.php", data={"hash": info_hash}
         )
-        response.raise_for_status()
+        self._error_handler(response)
         filename = re.sub(
             r'attachment; filename="(.+)"',
             r"\1",
@@ -82,8 +88,8 @@ class RuTorrent:
         url += "?" + url_args
         files = {"torrent_file[]": file.open("rb")}
         response = self.session.post(url, files=files)
-
-        response.raise_for_status()
+        self._error_handler(response)
+        return response
 
     def set_path(self, info_hash: str, path: str, add_path=True, move_files=False, fast_resume=False):
         data = {
@@ -96,7 +102,7 @@ class RuTorrent:
         response = self.session.post(
             self.url + "/plugins/datadir/action.php", data=data
         )
-        response.raise_for_status()
+        self._error_handler(response)
         return response.json()
 
     def recheck(self, info_hash: str):
