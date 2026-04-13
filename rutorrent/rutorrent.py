@@ -1,7 +1,7 @@
 import re
 import urllib.parse
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 
 import requests
 
@@ -114,3 +114,10 @@ class RuTorrent:
             if torrent.name == name:
                 return torrent
         return None
+
+    def find_torrents(self, name: str) -> List[models.Torrent]:
+        torrents = []
+        for torrent in self.get_torrents():
+            if torrent.name == name:
+                torrents.append(torrent)
+        return torrents
