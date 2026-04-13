@@ -1,6 +1,7 @@
 import re
 import urllib.parse
 from pathlib import Path
+from typing import Optional
 
 import requests
 
@@ -107,3 +108,9 @@ class RuTorrent:
 
     def recheck(self, info_hash: str):
         self._post_action("recheck", info_hash)
+
+    def find_torrent(self, name: str) -> Optional[models.Torrent]:
+        for torrent in self.get_torrents():
+            if torrent.name == name:
+                return torrent
+        return None
