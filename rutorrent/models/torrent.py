@@ -32,7 +32,7 @@ class Torrent:
     priority: int
     state_changed: int
     skip_total: int
-    hashing: bool
+    hashing: int
     chunks_hashed: int
     base_path: str
     creation_date: datetime.datetime
