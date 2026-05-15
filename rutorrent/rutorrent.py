@@ -109,6 +109,9 @@ class RuTorrent:
     def recheck(self, info_hash: str):
         self._post_action("recheck", info_hash)
 
+    def start(self, info_hash: str):
+        self._post_action("start", info_hash)
+
     def find_torrent(self, name: str) -> Optional[models.Torrent]:
         for torrent in self.get_torrents():
             if torrent.name == name:
